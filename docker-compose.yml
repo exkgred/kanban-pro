@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: scrum-postgres
+    restart: unless-stopped
+    ports:
+      - "5434:5432"
+    environment:
+      POSTGRES_USER: scrum
+      POSTGRES_PASSWORD: scrum
+      POSTGRES_DB: scrum_kanban
+    volumes:
+      - scrum_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U scrum -d scrum_kanban"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  scrum_pg_data:

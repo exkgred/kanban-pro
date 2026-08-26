@@ -1,0 +1,28 @@
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Dependencies
+node_modules/
+dist/
+build/
+.next/
+out/
+coverage/
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# Logs / test
+*.log
+cypress/videos/
+cypress/screenshots/
+
+# Prisma
+backend/prisma/*.db
+backend/prisma/*.db-journal
+frontend/package.json.bak
