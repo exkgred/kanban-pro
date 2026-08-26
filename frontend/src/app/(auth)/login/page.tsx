@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import Link from 'next/link';
 import { Button } from '@/components/ui';
+import { getErrorMessage } from '@/lib/errors';
 
 const loginSchema = z.object({
   email: z.string().email('Email inválido'),
@@ -37,13 +38,10 @@ export default function LoginPage() {
       await login(data.email, data.password);
       toast.success('Login realizado com sucesso!');
       router.push('/boards');
-    } catch (error: any) {
-      const msg =
-        error?.response?.data?.error?.message ||
-        error?.response?.data?.message ||
-        error?.message ||
-        'Credenciais inválidas ou erro ao autenticar';
-      toast.error(msg);
+    } catch (error: unknown) {
+      toast.error(
+        getErrorMessage(error, 'Credenciais inválidas ou erro ao autenticar'),
+      );
     }
   };
 
@@ -55,6 +53,7 @@ export default function LoginPage() {
           <label className="block text-sm font-medium text-slate-700">Email</label>
           <input
             {...register('email')}
+            name="email"
             type="email"
             className="mt-1 block w-full border border-slate-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-violet-500 focus:border-violet-500 sm:text-sm"
           />
@@ -64,6 +63,7 @@ export default function LoginPage() {
           <label className="block text-sm font-medium text-slate-700">Senha</label>
           <input
             {...register('password')}
+            name="password"
             type="password"
             className="mt-1 block w-full border border-slate-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-violet-500 focus:border-violet-500 sm:text-sm"
           />

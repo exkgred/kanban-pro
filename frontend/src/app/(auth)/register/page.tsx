@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import Link from 'next/link';
 import { Button } from '@/components/ui';
+import { getErrorMessage } from '@/lib/errors';
 
 const registerSchema = z.object({
   name: z.string().min(2, 'O nome deve ter pelo menos 2 caracteres'),
@@ -34,13 +35,8 @@ export default function RegisterPage() {
       await registerAction(data.name, data.email, data.password);
       toast.success('Cadastro realizado com sucesso!');
       router.push('/boards');
-    } catch (error: any) {
-      const msg =
-        error?.response?.data?.error?.message ||
-        error?.response?.data?.message ||
-        error?.message ||
-        'Erro ao cadastrar usuário';
-      toast.error(msg);
+    } catch (error: unknown) {
+      toast.error(getErrorMessage(error, 'Erro ao cadastrar usuário'));
     }
   };
 
@@ -52,6 +48,7 @@ export default function RegisterPage() {
           <label className="block text-sm font-medium text-slate-700">Nome</label>
           <input
             {...register('name')}
+            name="name"
             type="text"
             className="mt-1 block w-full border border-slate-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-violet-500 focus:border-violet-500 sm:text-sm"
           />
@@ -61,6 +58,7 @@ export default function RegisterPage() {
           <label className="block text-sm font-medium text-slate-700">Email</label>
           <input
             {...register('email')}
+            name="email"
             type="email"
             className="mt-1 block w-full border border-slate-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-violet-500 focus:border-violet-500 sm:text-sm"
           />
@@ -70,6 +68,7 @@ export default function RegisterPage() {
           <label className="block text-sm font-medium text-slate-700">Senha</label>
           <input
             {...register('password')}
+            name="password"
             type="password"
             className="mt-1 block w-full border border-slate-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-violet-500 focus:border-violet-500 sm:text-sm"
           />
@@ -79,6 +78,7 @@ export default function RegisterPage() {
           <label className="block text-sm font-medium text-slate-700">Confirmar Senha</label>
           <input
             {...register('confirmPassword')}
+            name="confirmPassword"
             type="password"
             className="mt-1 block w-full border border-slate-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-violet-500 focus:border-violet-500 sm:text-sm"
           />

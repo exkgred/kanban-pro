@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { apiClient } from '../../lib/api-client';
 import { Card, CardPriority } from '../../types';
-import { useBoardStore } from '../../stores/board-store';
 
 interface AddCardFormProps {
   columnId: string;
@@ -16,12 +15,6 @@ export function AddCardForm({ columnId, boardId, onAdd, onCancel }: AddCardFormP
   const [title, setTitle] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const cards = useBoardStore((s) => s.cards);
-  const columnCards = cards.filter((c) => c.columnId === columnId);
-  const nextPosition = columnCards.length > 0
-    ? Math.max(...columnCards.map((c) => c.position)) + 1000
-    : 1000;
-
   const handleSubmit = async () => {
     if (!title.trim()) return;
     setLoading(true);
@@ -30,7 +23,6 @@ export function AddCardForm({ columnId, boardId, onAdd, onCancel }: AddCardFormP
         title: title.trim(),
         columnId,
         priority: CardPriority.MEDIUM,
-        position: nextPosition,
       });
       onAdd(res.data as Card);
       setTitle('');
@@ -49,6 +41,7 @@ export function AddCardForm({ columnId, boardId, onAdd, onCancel }: AddCardFormP
           if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSubmit(); }
           if (e.key === 'Escape') onCancel();
         }}
+        data-cy="card-title-input"
         placeholder="Título do card..."
         rows={2}
         className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm resize-none outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent"

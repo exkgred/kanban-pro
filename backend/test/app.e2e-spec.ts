@@ -207,7 +207,7 @@ describe('Kanban API E2E', () => {
       const memberUser = {
         email: `member${uniqueId}@example.com`,
         name: 'Member',
-        password: 'pwd',
+        password: 'password123',
       };
       await request(app.getHttpServer())
         .post('/api/v1/auth/register')

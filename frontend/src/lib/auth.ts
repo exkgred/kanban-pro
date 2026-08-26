@@ -44,13 +44,13 @@ export const getStoredUser = () => {
   const userStr = localStorage.getItem('authUser');
   if (!userStr) return null;
   try {
-    return JSON.parse(userStr);
+    return JSON.parse(userStr) as unknown;
   } catch {
     return null;
   }
 };
 
-export const setStoredUser = (user: any) => {
+export const setStoredUser = (user: unknown) => {
   if (typeof window !== 'undefined') {
     localStorage.setItem('authUser', JSON.stringify(user));
   }

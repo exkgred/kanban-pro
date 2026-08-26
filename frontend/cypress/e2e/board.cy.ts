@@ -35,13 +35,13 @@ describe('Kanban Board Flow', () => {
 
     // 3. Add Column
     cy.contains(/nova coluna/i).click();
-    cy.get('input[placeholder*="coluna"]').type('To Do');
-    cy.contains('button', /adicionar/i).click();
-    cy.contains('To Do', { timeout: 6000 }).should('be.visible');
+    cy.get('[data-cy=column-title-input]').type('Review');
+    cy.contains('button', /adicionar/i).first().click();
+    cy.contains('Review', { timeout: 6000 }).should('be.visible');
 
     // 4. Add Card
-    cy.contains(/adicionar card/i).click();
-    cy.get('textarea[placeholder*="card"]').type('First Task{enter}');
+    cy.contains(/adicionar card/i).first().click();
+    cy.get('[data-cy=card-title-input]').type('First Task{enter}');
     cy.contains('First Task', { timeout: 6000 }).should('be.visible');
   });
 });

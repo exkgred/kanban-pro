@@ -15,7 +15,7 @@ describe('Authentication Flow', () => {
   });
 
   it('navigates to registration page and shows form', () => {
-    cy.contains(/cadastre-se|criar conta|registrar/i).click();
+    cy.contains(/cadastre-se|criar conta|registre/i).click();
     cy.url().should('include', '/register');
     cy.get('input[name="name"]').should('be.visible');
     cy.get('input[name="email"]').should('be.visible');

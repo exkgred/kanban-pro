@@ -44,6 +44,7 @@ export function AddColumnForm({ boardId, onAdd, onCancel }: AddColumnFormProps) 
           if (e.key === 'Enter') handleSubmit();
           if (e.key === 'Escape') onCancel();
         }}
+        data-cy="column-title-input"
         placeholder="Título da coluna..."
         className="border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent bg-white"
       />
