@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { createHash } from 'crypto';
+import { createHash, randomUUID } from 'crypto';
 import type {
   AccessTokenPayload,
   TokenService,
@@ -22,10 +22,13 @@ export class JwtTokenService implements TokenService {
   }
 
   async signRefresh(payload: { sub: string }): Promise<string> {
-    return this.jwtService.signAsync(payload, {
-      secret: this.config.getOrThrow<string>('JWT_REFRESH_SECRET'),
-      expiresIn: this.config.get<string>('JWT_REFRESH_EXPIRES_IN', '7d'),
-    });
+    return this.jwtService.signAsync(
+      { sub: payload.sub, jti: randomUUID() },
+      {
+        secret: this.config.getOrThrow<string>('JWT_REFRESH_SECRET'),
+        expiresIn: this.config.get<string>('JWT_REFRESH_EXPIRES_IN', '7d'),
+      },
+    );
   }
 
   async verifyAccess(token: string): Promise<AccessTokenPayload> {

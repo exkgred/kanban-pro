@@ -54,8 +54,6 @@ export class DeleteCardUseCase {
       throw new NotFoundError('Card');
     }
 
-    await this.cardRepo.delete(input.cardId);
-
     const activity = await this.activityRepo.create({
       boardId: input.boardId,
       cardId: input.cardId,
@@ -67,6 +65,8 @@ export class DeleteCardUseCase {
         columnId: existing.columnId,
       },
     });
+
+    await this.cardRepo.delete(input.cardId);
 
     this.realtimePublisher?.publish({
       boardId: input.boardId,
