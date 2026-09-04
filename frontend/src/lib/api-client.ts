@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { getAccessToken, getRefreshToken } from './auth';
+import { isDemo } from './demo-mode';
+import { demoAdapter } from './mock-adapter';
 
 export const apiClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api/v1',
@@ -7,6 +9,7 @@ export const apiClient = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  ...(isDemo ? { adapter: demoAdapter } : {}),
 });
 
 apiClient.interceptors.request.use((config) => {

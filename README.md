@@ -115,6 +115,19 @@ App: http://localhost:3000 (home redireciona para `/login`).
 
 O seed recria três boards do owner demo: **Produto MVP**, **Marketing Q3**, **Infra & DevOps** (cards, tags e sprints).
 
+## Demo na Vercel (sem backend)
+
+O frontend sobe sozinho, sem Nest/Postgres. Com `NEXT_PUBLIC_DEMO=true` a API é mockada no browser (boards, cards, sprints e horas).
+
+1. No [Vercel](https://vercel.com/new) importe `exkgred/kanban-pro`
+2. **Root Directory:** `frontend`
+3. Framework: Next.js
+4. Variável: `NEXT_PUBLIC_DEMO=true`
+
+Login da demo: `demo@kanban.dev` / `Demo1234!` (já vem preenchido).
+
+Ou, na pasta `frontend/`: `npx vercel --prod`.
+
 ---
 
 ## Testes

@@ -11,6 +11,7 @@ import { BoardFilters } from '../../../../components/filters/BoardFilters';
 import { ActivityFeed } from '../../../../components/activity/ActivityFeed';
 import { Spinner } from '../../../../components/ui';
 import { Activity } from '../../../../types';
+import { isDemo } from '../../../../lib/demo-mode';
 
 export default function BoardPage() {
   const { id } = useParams<{ id: string }>();
@@ -51,7 +52,7 @@ export default function BoardPage() {
 
     load();
 
-    if (accessToken) {
+    if (accessToken && !isDemo) {
       const socket = getSocket(accessToken);
       socket.connect();
       socket.emit('join:board', { boardId: id });

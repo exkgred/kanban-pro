@@ -40,6 +40,11 @@ export default function DashboardLayout({
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
+      {process.env.NEXT_PUBLIC_DEMO === 'true' && (
+        <div className="bg-violet-700 px-3 py-1.5 text-center text-[11px] text-violet-100 sm:text-xs">
+          Demo estática do KanbanPro — dados locais, sem API. Arraste cards, crie colunas e explore sprints.
+        </div>
+      )}
       <nav className="bg-white border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">

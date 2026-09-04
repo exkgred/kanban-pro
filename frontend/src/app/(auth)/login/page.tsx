@@ -31,6 +31,10 @@ export default function LoginPage() {
   
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<LoginForm>({
     resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: 'demo@kanban.dev',
+      password: 'Demo1234!',
+    },
   });
 
   const onSubmit = async (data: LoginForm) => {
@@ -73,6 +77,10 @@ export default function LoginPage() {
           Entrar
         </Button>
       </form>
+      <p className="mt-4 rounded-lg bg-violet-50 px-3 py-2 text-center text-xs text-slate-600">
+        Demo estática — use <span className="font-medium text-slate-900">demo@kanban.dev</span> /
+        <span className="font-medium text-slate-900"> Demo1234!</span> ou qualquer e-mail válido.
+      </p>
       <div className="mt-4 text-center text-sm">
         <span className="text-slate-600">Não tem uma conta? </span>
         <Link href="/register" className="font-medium text-violet-600 hover:text-violet-500">
