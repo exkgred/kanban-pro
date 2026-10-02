@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/stores/auth-store';
 import Link from 'next/link';
+import { BrandMark } from '@/components/BrandMark';
 import { Button } from '@/components/ui';
 
 
@@ -50,8 +51,8 @@ export default function DashboardLayout({
           <div className="flex justify-between h-16">
             <div className="flex">
               <div className="flex-shrink-0 flex items-center">
-                <Link href="/boards" className="text-xl font-bold text-violet-600">
-                  KanbanPro
+                <Link href="/boards" className="text-slate-900">
+                  <BrandMark size={32} />
                 </Link>
               </div>
               <div className="ml-6 flex items-center space-x-4">
